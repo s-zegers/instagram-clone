@@ -1,0 +1,83 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+}
+
+#stories {
+    overflow: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    // We only want this padding when there's  a scrollbar
+    padding-bottom: 1rem;
+
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        background-color: #F5F5F5;
+        border-radius: 10px;
+    }
+    
+    &::-webkit-scrollbar {
+        width: 10px;
+        height: 6px;
+        background-color: #F5F5F5;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-image: -webkit-gradient(linear,
+                                           left bottom,
+                                           right top,
+                                           color-stop(0, #b827fc),
+                                           color-stop(0.25, #2c90fc),
+                                           color-stop(0.50, #b8fd33),
+                                           color-stop(0.75, #fec837),
+                                           color-stop(1, #fd1892));
+    }
+}
+
+@keyframes colorSwitchAnimation {
+    0% {border: 3px solid #b827fc;}
+    20% {border: 3px solid #2c90fc;}
+    40% {border: 3px solid #b8fd33;}
+    60% {border: 3px solid #fec837}
+    80% {border: 3px solid #fd1892;}
+    100% {border: 3px solid #b827fc;}
+}
+
+#stories > img {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    margin-right: 0.5rem;
+    border: 3px solid #b827fc;
+    border-radius: 100%;
+    border-image-slice: 1;
+    animation: colorSwitchAnimation 5s infinite;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.modal-close {
+    top: 15px;
+    right: 15px;
+}
+
+.modal-author {
+    color: #FFF;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
