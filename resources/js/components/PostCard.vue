@@ -47,8 +47,8 @@ export default {
     },
   },
   directives: {
-    humanTimeDiff: function (el, value) {
-      el.innerText = moment(value).fromNow();
+    humanTimeDiff: function (el, binding) {
+      el.innerText = moment(binding.value).fromNow();
     },
   },
 };
