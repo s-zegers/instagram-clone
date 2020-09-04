@@ -28,8 +28,8 @@ Route::middleware(['web'])->group(function () {
         Route::post('profile/{id}/follow', 'UserController@follow')->name('profile.follow');
         Route::post('profile/{id}/unfollow', 'UserController@unfollow')->name('profile.unfollow');
         
-        Route::get('posts/create', 'Postcontroller@create')->name('posts.create');
-        Route::post('posts', 'Postcontroller@store')->name('posts.store');
+        Route::get('posts/create', 'PostController@create')->name('posts.create');
+        Route::post('posts', 'PostController@store')->name('posts.store');
         Route::get('posts/{id}', 'PostController@show')->name('posts.show');
         Route::delete('posts/{id}', 'Postcontroller@destroy')->name('posts.destroy');
 
