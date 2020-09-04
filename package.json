@@ -24,6 +24,8 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "moment": "^2.27.0"
+        "laravel-echo": "^1.8.1",
+        "moment": "^2.27.0",
+        "pusher-js": "^7.0.0"
     }
 }
