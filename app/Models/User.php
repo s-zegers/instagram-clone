@@ -38,6 +38,15 @@ class User extends Authenticatable
         'follower_list' => 'collection',
     ];
 
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => UserCreated::class,
+    ];
+
     public function stories()
     {
         return $this->hasMany(Story::class);
