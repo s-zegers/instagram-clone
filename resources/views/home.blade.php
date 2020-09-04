@@ -22,7 +22,9 @@
                                             <button type="button" class="close position-absolute modal-close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
-                                            <div class="position-absolute modal-author">Story by <a href="{{ route('profile.show', $story->user->id) }}">{{ $story->user->name }}</a></div>
+                                            <div class="position-absolute modal-author">
+                                                Story by <a href="{{ route('profile.show', $story->user->id) }}">{{ $story->user->name }}</a>
+                                            </div>
                                             <img src="{{ asset("storage/$story->image") }}" alt="Story image" class="img-fluid">
                                         </div>
                                     </div>
@@ -31,31 +33,9 @@
                         </div>
                     @endif
                     @forelse ($posts as $post)
-                        <div class="card mb-3">
-                            @isset($post->image)
-                                <img class="card-img-top" src="{{ asset("storage/$post->image") }}" alt="Card header">
-                            @endisset
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    {{ $post->title }}
-                                </h5>
-                                <p class="card-text">{{ $post->description }}</p>
-                            </div>
-                            <div class="card-footer text-muted">
-                                Posted by <a href="{{ route('profile.show', $post->user->id) }}">{{ $post->user->name }}</a>                 
-                                <div class="float-right">
-                                    {{ $post->created_at->diffForHumans() }}
-                                    @if ($post->user_id == Auth::user()->id)
-                                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST" id="delete-form-{{ $post->id }}" class="d-inline">
-                                            @csrf
-                                            <input type="hidden" name="_method" value="delete" />
-                                            <a onclick="event.preventDefault();
-                                                document.getElementById('delete-form-{{ $post->id }}').submit();">❌</a>
-                                        </form>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
+                        <post-card :post="{{ $post }}" :user="{{ Auth::user() }}"
+                            show-route="{{ route('profile.show', $post->user->id) }}"
+                            delete-route="{{ route('posts.destroy', $post->id) }}"></post-card>
                     @empty
                         <p>There are currently no posts 😞</p>
                     @endforelse
