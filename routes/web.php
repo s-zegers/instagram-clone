@@ -35,6 +35,10 @@ Route::middleware(['web'])->group(function () {
 
         Route::get('stories/create', 'StoryController@create')->name('stories.create');
         Route::post('stories', 'StoryController@store')->name('stories.store');
+
+        Route::get('chat', 'ChatController@index');
+        Route::get('messages', 'ChatController@fetchMessages');
+        Route::post('messages', 'ChatController@sendMessage');
     });
 });
 
