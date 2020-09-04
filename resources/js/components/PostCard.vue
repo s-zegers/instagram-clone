@@ -3,7 +3,7 @@
     <img v-if="post.image" class="card-img-top" :src="'/storage/' + post.image" alt="Card header" />
     <div class="card-body">
       <h5 class="card-title">{{ post.title }}</h5>
-      <p class="card-text">{{ post.description }}</p>
+      <p class="card-text" v-format-links="post.description"></p>
     </div>
     <div class="card-footer text-muted">
       Posted by
@@ -49,6 +49,9 @@ export default {
   directives: {
     humanTimeDiff: function (el, binding) {
       el.innerText = moment(binding.value).fromNow();
+    },
+    formatLinks: function (el, binding) {
+      el.innerHTML = binding.value.replace(/(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim, '<a href="$1">$1</a>');
     },
   },
 };
