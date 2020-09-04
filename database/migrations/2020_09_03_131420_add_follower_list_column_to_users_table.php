@@ -14,7 +14,7 @@ class AddFollowerListColumnToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->text('follower_list')->default('[]')->after('profile_picture');
+            $table->text('follower_list')->nullable()->after('profile_picture');
         });
     }
 
