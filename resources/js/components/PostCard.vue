@@ -10,10 +10,16 @@
       <a :href="showRoute">{{ post.user.name }}</a>
       <div class="float-right">
         <span v-human-time-diff="post.created_at"></span>
-        <form v-if="post.user.id == user.id" :action="deleteRoute" method="POST" class="d-inline">
+        <form
+          v-if="post.user.id == user.id"
+          :action="deleteRoute"
+          method="POST"
+          class="d-inline"
+          ref="form"
+        >
           <input type="hidden" name="_token" :value="csrf" />
           <input type="hidden" name="_method" value="DELETE" />
-          <a @click="submitForm()">❌</a>
+          <a @click="submitForm($event)">❌</a>
         </form>
       </div>
     </div>
@@ -37,7 +43,7 @@ export default {
   methods: {
     submitForm(event) {
       event.preventDefault();
-      document.getElement("form").submit();
+      this.$refs.form.submit();
     },
   },
   directives: {
