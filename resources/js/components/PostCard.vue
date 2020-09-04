@@ -38,7 +38,7 @@ export default {
   data: () => ({
     csrf: document
       .querySelector('meta[name="csrf-token"]')
-      .getAttribute("form"),
+      .getAttribute("content"),
   }),
   methods: {
     submitForm(event) {
