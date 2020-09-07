@@ -50,13 +50,13 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="/posts/create"><i class="fas fa-camera"></i></a>
+                                <a class="nav-link" href="/posts/create" title="Create a new post"><i class="fas fa-camera"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/stories/create"><i class="fas fa-clock"></i></a>
+                                <a class="nav-link" href="/stories/create" title="Create a new story"><i class="fas fa-clock"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/chat"><i class="fas fa-paper-plane"></i></a>
+                                <a class="nav-link" href="/chat" title="Go to the chat"><i class="fas fa-paper-plane"></i></a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
