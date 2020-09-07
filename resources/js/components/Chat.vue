@@ -67,6 +67,7 @@ export default {
         });
     },
     sendMessage() {
+      if (this.newMessage.length === 0) return;
       let message = {
         user: this.user,
         message: this.newMessage,
