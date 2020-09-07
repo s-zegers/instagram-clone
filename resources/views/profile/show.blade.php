@@ -63,8 +63,7 @@
                 </div>
             @endif
             @if (count($user->stories->where('created_at', '>', now()->subDay(1))) > 1)
-                <h1>Stories past 24 hours</h1>
-                <div id="stories" class="mb-3">
+                <div id="stories" class="my-3">
                     @foreach ($user->stories as $story)
                         <img src="{{ asset("storage/$story->image") }}" alt="Story image" data-toggle="modal" data-target="#story-modal-{{ $story->id }}">
                         <div class="modal fade" id="story-modal-{{ $story->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
