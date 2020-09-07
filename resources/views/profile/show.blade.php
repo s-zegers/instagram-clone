@@ -80,10 +80,7 @@
                 </div>
             @endif
             @forelse ($user->posts->sortByDesc('created_at') as $post)
-                @php
-                    $post->user = json_decode($user);
-                @endphp
-                <post-card :post="{{ $post }}" :user="{{ Auth::user() }}"
+                <post-card :post="{{ collect($post)->put('user', $user) }}" :user="{{ Auth::user() }}"
                     show-route="{{ route('profile.show', $user->id) }}"
                     delete-route="{{ route('posts.destroy', $post->id) }}"></post-card>
             @empty
