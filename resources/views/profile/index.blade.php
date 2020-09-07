@@ -32,31 +32,6 @@
                         <button type="submit" class="btn btn-danger" onclick="event.preventDefault();
                             document.getElementById('delete-profile-form').submit();">Delete profile 😢</button>
                     </form>
-                    <h1 class="mt-3">Your posts</h1>
-                    {{-- Get these cards next to each other --}}
-                    @forelse (Auth::user()->posts->sortByDesc('created_at') as $post)
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $post->title }}</h5>
-                                <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary">Details</a>
-                                <form action="{{ route('posts.destroy', $post->id) }}" method="POST" id="delete-form-{{ $post->id }}" class="d-inline">
-                                    @csrf
-                                    <input type="hidden" name="_method" value="delete" />
-                                    <button class="btn btn-danger" onclick="event.preventDefault();
-                                        document.getElementById('delete-form-{{ $post->id }}').submit();">Delete</button>
-                                </form>
-                            </div>
-                            <div class="card-footer text-muted">
-                                <div class="float-right">
-                                    {{ $post->created_at->diffForHumans() }}
-                                </div>
-                            </div>
-                        </div>
-                    @empty
-                        <div>You don't have any posts yet</div>
-                    @endforelse
-                    <a href="{{ route('posts.create') }}" class="btn btn-primary mt-2">Create a new post 📫</a>
-                    <a href="{{ route('stories.create') }}" class="btn btn-primary mt-2">New story 📸</a>
                 </div>
             </div>
         </div>

@@ -394,7 +394,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card mb-3" }, [
+  return _c("div", { staticClass: "card mt-3" }, [
     _vm.post.image
       ? _c("img", {
           staticClass: "card-img-top",

@@ -14,7 +14,7 @@
             </div>
             @if ($user->follower_list->count() > 0)
                 <p class="mb-1"><b>Bio:</b> Coming soon</p>
-                <a href="#" data-toggle="modal" data-target="#followers-modal" class="mb-1">
+                <a href="#" data-toggle="modal" data-target="#followers-modal">
                     <b>Followers:</b> {{ count($user->follower_list) }}
                 </a>
                 <div class="modal fade" id="followers-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -50,13 +50,13 @@
                     @if (! $user->follower_list->contains(Auth::user()->id))
                         <form action="{{ route('profile.follow', $user->id) }}" method="POST" id="follow-profile-form" class="d-inline">
                             @csrf
-                            <button type="submit" class="btn btn-primary" onclick="event.preventDefault();
+                            <button type="submit" class="btn btn-primary mt-2" onclick="event.preventDefault();
                                 document.getElementById('follow-profile-form').submit();">Follow</button>
                         </form>
                     @else
                         <form action="{{ route('profile.unfollow', $user->id) }}" method="POST" id="unfollow-profile-form" class="d-inline">
                             @csrf
-                            <button type="submit" class="btn btn-danger" onclick="event.preventDefault();
+                            <button type="submit" class="btn btn-danger mt-2" onclick="event.preventDefault();
                                 document.getElementById('unfollow-profile-form').submit();">Unfollow</button>
                         </form>
                     @endif
@@ -80,24 +80,13 @@
                     @endforeach
                 </div>
             @endif
-            <h1>Posts</h1>
             @forelse ($user->posts->sortByDesc('created_at') as $post)
-                <div class="card mb-3">
-                    @isset($post->image)
-                        <img class="card-img-top" src="{{ asset("storage/$post->image") }}" alt="Card header">
-                    @endisset
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            {{ $post->title }}
-                        </h5>
-                        <p class="card-text">{{ $post->description }}</p>
-                    </div>
-                    <div class="card-footer text-muted">                
-                        <div class="float-right">
-                            {{ $post->created_at->diffForHumans() }}
-                        </div>
-                    </div>
-                </div>
+                @php
+                    $post->user = json_decode($user);
+                @endphp
+                <post-card :post="{{ $post }}" :user="{{ Auth::user() }}"
+                    show-route="{{ route('profile.show', $user->id) }}"
+                    delete-route="{{ route('posts.destroy', $post->id) }}"></post-card>
             @empty
                 <p>This user has no posts yet</p>
             @endforelse

@@ -1,5 +1,5 @@
 <template>
-  <div class="card mb-3">
+  <div class="card mt-3">
     <img v-if="post.image" class="card-img-top" :src="'/storage/' + post.image" alt="Card header" />
     <div v-if="post.user.id == user.id" class="dropdown show">
       <i class="fas fa-ellipsis-v edit-icon position-absolute" data-toggle="dropdown"></i>

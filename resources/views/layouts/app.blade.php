@@ -68,16 +68,21 @@
                                     {{ Auth::user()->name }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('profile.index') }}"><i class="fas fa-snowboarding"></i> Profile</a>
+                                    <a class="dropdown-item" href="{{ route('profile.show', Auth::user()->id) }}">
+                                        <i class="fas fa-snowboarding"></i> Profile
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('profile.index') }}">
+                                        <i class="fas fa-cogs"></i> Settings
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+                                    
                                 </div>
                             </li>
                         @endguest
