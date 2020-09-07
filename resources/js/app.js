@@ -87,3 +87,8 @@ $('#file, #profile-picture').change(function () {
         reader.readAsDataURL(this.files[0]); // convert to base64 string
     }
 });
+
+$('input[type="file"]').on('change',function(){
+    var fileName = $(this).val();
+    $(this).next('.custom-file-label').html(fileName);
+})
