@@ -1,26 +1,25 @@
 <template>
   <div class="card mb-3">
     <img v-if="post.image" class="card-img-top" :src="'/storage/' + post.image" alt="Card header" />
+    <div v-if="post.user.id == user.id" class="dropdown show">
+      <i class="fas fa-ellipsis-v edit-icon position-absolute" data-toggle="dropdown"></i>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <form :action="deleteRoute" method="POST" class="d-inline" ref="form">
+          <input type="hidden" name="_token" :value="csrf" />
+          <input type="hidden" name="_method" value="DELETE" />
+          <a @click="submitForm($event)" class="dropdown-item" href="#">Delete</a>
+        </form>
+      </div>
+    </div>
     <div class="card-body">
-      <h5 class="card-title">{{ post.title }}</h5>
+      <h5 class="card-title mb-0">{{ post.title }}</h5>
       <p class="card-text" v-format-links="post.description"></p>
     </div>
     <div class="card-footer text-muted">
       Posted by
-      <a :href="showRoute">{{ post.user.name }}</a>
+      <a :href="showRoute" class="animated-text">{{ post.user.name }}</a>
       <div class="float-right">
         <span v-human-time-diff="post.created_at"></span>
-        <form
-          v-if="post.user.id == user.id"
-          :action="deleteRoute"
-          method="POST"
-          class="d-inline"
-          ref="form"
-        >
-          <input type="hidden" name="_token" :value="csrf" />
-          <input type="hidden" name="_method" value="DELETE" />
-          <a @click="submitForm($event)">❌</a>
-        </form>
       </div>
     </div>
   </div>
@@ -51,7 +50,10 @@ export default {
       el.innerText = moment(binding.value).fromNow();
     },
     formatLinks: function (el, binding) {
-      el.innerHTML = binding.value.replace(/(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim, '<a href="$1">$1</a>');
+      el.innerHTML = binding.value.replace(
+        /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim,
+        '<a href="$1">$1</a>'
+      );
     },
   },
 };

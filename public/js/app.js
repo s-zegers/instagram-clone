@@ -55732,6 +55732,36 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 var app = new Vue({
   el: '#app',
+  data: function data() {
+    return {
+      darkMode: false
+    };
+  },
+  mounted: function mounted() {
+    var htmlElement = document.documentElement;
+    var theme = localStorage.getItem('theme');
+
+    if (theme === 'dark') {
+      htmlElement.setAttribute('theme', 'dark');
+      this.darkMode = true;
+    } else {
+      htmlElement.setAttribute('theme', 'light');
+      this.darkMode = false;
+    }
+  },
+  watch: {
+    darkMode: function darkMode() {
+      var htmlElement = document.documentElement;
+
+      if (this.darkMode) {
+        localStorage.setItem('theme', 'dark');
+        htmlElement.setAttribute('theme', 'dark');
+      } else {
+        localStorage.setItem('theme', 'light');
+        htmlElement.setAttribute('theme', 'light');
+      }
+    }
+  },
   // Lazy load the components
   components: {
     'post-card': function postCard() {
