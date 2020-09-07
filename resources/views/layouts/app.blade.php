@@ -53,19 +53,26 @@
                                 <a class="nav-link" href="/posts/create"><i class="fas fa-camera"></i></a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="/stories/create"><i class="fas fa-clock"></i></a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="/chat"><i class="fas fa-paper-plane"></i></a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    @if (isset(Auth::user()->profile_picture))
+                                        <img src="{{ asset('storage/'.Auth::user()->profile_picture) }}" alt="Profile picture" class="rounded-circle" height="20" width="20">
+                                    @else
+                                        <img src="{{ asset('images/default-user-icon.jpg') }}" alt="Profile picture" class="rounded-circle" height="20" width="20"> 
+                                    @endif
                                     {{ Auth::user()->name }}
                                 </a>
-
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('profile.index') }}">Profile</a>
+                                    <a class="dropdown-item" href="{{ route('profile.index') }}"><i class="fas fa-snowboarding"></i> Profile</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
