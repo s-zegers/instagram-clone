@@ -20,7 +20,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                     <div class="position-absolute modal-author">
-                                        Story by <a href="{{ route('profile.show', $story->user->id) }}">{{ $story->user->name }}</a>
+                                        Story by <a href="{{ route('profile.show', $story->user->id) }}" class="animated-text">{{ $story->user->name }}</a>
                                     </div>
                                     <img src="{{ asset("storage/$story->image") }}" alt="Story image" class="img-fluid">
                                 </div>
