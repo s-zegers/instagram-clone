@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -78,10 +78,16 @@
                 </div>
             </div>
         </nav>
-
         <main class="py-4">
             @yield('content')
         </main>
+        <footer class="py-4 text-center">
+            <h5>Dark theme</h5>
+            <label class="switch">
+                <input type="checkbox" v-model="darkMode">
+                <span class="slider round"></span>
+            </label>
+        </footer>
     </div>
 </body>
 </html>
