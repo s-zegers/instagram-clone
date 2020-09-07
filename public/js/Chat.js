@@ -88,6 +88,7 @@ function chatScrollDown() {
     sendMessage: function sendMessage() {
       var _this2 = this;
 
+      if (this.newMessage.length === 0) return;
       var message = {
         user: this.user,
         message: this.newMessage
