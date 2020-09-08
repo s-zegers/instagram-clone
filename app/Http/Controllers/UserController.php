@@ -13,9 +13,18 @@ class UserController extends Controller
         return view('profile.index');
     }
 
-    public function show(int $id)
+    public function show($id)
     {
+        if (! is_numeric($id)) {
+            abort(404);
+        }
+
         $user = User::with('posts')->with('stories')->firstWhere('id', $id);
+
+        if (is_null($user)) {
+            abort(404);
+        }
+
         $followers = User::whereIn('id', $user->follower_list)->get();
 
         return view('profile.show', compact('user', 'followers'));
