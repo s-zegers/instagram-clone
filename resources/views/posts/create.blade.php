@@ -23,10 +23,15 @@
                             </div>
                             <div class="col-4">
                                 <label for="file">Image</label>
-                                <div class="custom-file">
+                                <div class="custom-file @error('image') is-invalid @enderror">
                                     <input type="file" class="custom-file-input" id="file" accept="image/*" name="image">
                                     <label class="custom-file-label" for="file">Choose file</label>
                                 </div>
+                                @error('image')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-group">
