@@ -62,9 +62,9 @@
                     @endif
                 </div>
             @endif
-            @if (count($user->stories->where('created_at', '>', now()->subDay(1))) > 1)
+            @if (count($stories = $user->stories->where('created_at', '>', now()->subDay(1))) > 1)
                 <div id="stories" class="my-3">
-                    @foreach ($user->stories as $story)
+                    @foreach ($stories->sortDesc() as $story)
                         <img src="{{ asset("storage/$story->image") }}" alt="Story image" data-toggle="modal" data-target="#story-modal-{{ $story->id }}">
                         <div class="modal fade" id="story-modal-{{ $story->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -79,7 +79,7 @@
                     @endforeach
                 </div>
             @endif
-            @forelse ($user->posts->sortByDesc('created_at') as $post)
+            @forelse ($user->posts->sortDesc() as $post)
                 <post-card :post="{{ collect($post)->put('user', $user) }}" :user="{{ Auth::user() }}"
                     show-route="{{ route('profile.show', $user->id) }}"
                     delete-route="{{ route('posts.destroy', $post->id) }}"></post-card>
