@@ -48,6 +48,15 @@ class User extends Authenticatable
         'created' => UserCreated::class,
     ];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'profile_picture_url',
+    ];
+
     public function stories()
     {
         return $this->hasMany(Story::class);
@@ -61,5 +70,14 @@ class User extends Authenticatable
     public function messages()
     {
         return $this->hasMany(Message::class);
+    }
+
+    public function getProfilePictureUrlAttribute()
+    {
+        if ($this->profile_picture !== null) {
+            return url('/').'/storage/'.$this->profile_picture;
+        }
+
+        return 'https://ui-avatars.com/api/?name='.urlencode($this->name).'&color=7F9CF5&background=EBF4FF';;
     }
 }
