@@ -17087,10 +17087,8 @@ a:hover {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.card-img-top {
-  height: 500px;
-  -o-object-fit: cover;
-     object-fit: cover;
+.card-text {
+  white-space: pre-wrap;
 }
 
 .form-control,
