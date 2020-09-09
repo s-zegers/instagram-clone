@@ -60,11 +60,7 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    @if (isset(Auth::user()->profile_picture))
-                                        <img src="{{ asset('storage/'.Auth::user()->profile_picture) }}" alt="Profile picture" class="rounded-circle" height="20" width="20">
-                                    @else
-                                        <img src="{{ asset('images/default-user-icon.jpg') }}" alt="Profile picture" class="rounded-circle" height="20" width="20"> 
-                                    @endif
+                                    <img src="{{ Auth::user()->profile_picture_url }}" alt="Profile picture" class="rounded-circle" height="20" width="20">
                                     {{ Auth::user()->name }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

@@ -109,12 +109,6 @@ function chatScrollDown() {
       });
     }
   },
-  directives: {
-    profilePicture: function profilePicture(el, binding) {
-      var url = binding.value.profile_picture ? "http://127.0.0.1:8000/storage/".concat(binding.value.profile_picture) : "https://ui-avatars.com/api/?name=".concat(binding.value.name, "&color=7F9CF5&background=EBF4FF");
-      el.src = url;
-    }
-  },
   computed: {
     mergedMessages: function mergedMessages() {
       var messages = this.messages;
@@ -221,16 +215,13 @@ var render = function() {
             _c("div", { staticClass: "chat-body clearfix d-flex" }, [
               _c("div", [
                 _c("img", {
-                  directives: [
-                    {
-                      name: "profile-picture",
-                      rawName: "v-profile-picture",
-                      value: message.user,
-                      expression: "message.user"
-                    }
-                  ],
                   staticClass: "rounded-circle mr-2",
-                  attrs: { alt: "Profile picture", height: "32", width: "32" }
+                  attrs: {
+                    src: message.user.profile_picture_url,
+                    alt: "Profile picture",
+                    height: "32",
+                    width: "32"
+                  }
                 })
               ]),
               _vm._v(" "),
