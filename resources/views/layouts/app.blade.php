@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -39,9 +39,6 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('home') }}">Home</a>
-                        </li>
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -53,24 +50,39 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="/chat">Chat</a>
+                                <a class="nav-link" href="/posts/create" title="Create a new post"><i class="fas fa-camera"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/stories/create" title="Create a new story"><i class="fas fa-clock"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/chat" title="Go to the chat"><i class="fas fa-paper-plane"></i></a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    @if (isset(Auth::user()->profile_picture))
+                                        <img src="{{ asset('storage/'.Auth::user()->profile_picture) }}" alt="Profile picture" class="rounded-circle" height="20" width="20">
+                                    @else
+                                        <img src="{{ asset('images/default-user-icon.jpg') }}" alt="Profile picture" class="rounded-circle" height="20" width="20"> 
+                                    @endif
                                     {{ Auth::user()->name }}
                                 </a>
-
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('profile.index') }}">Profile</a>
+                                    <a class="dropdown-item" href="{{ route('profile.show', Auth::user()->id) }}">
+                                        <i class="fas fa-snowboarding"></i> Profile
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('profile.index') }}">
+                                        <i class="fas fa-cogs"></i> Settings
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+                                    
                                 </div>
                             </li>
                         @endguest
@@ -78,10 +90,16 @@
                 </div>
             </div>
         </nav>
-
         <main class="py-4">
             @yield('content')
         </main>
+        <footer class="py-4 text-center">
+            <h5>Dark theme</h5>
+            <label class="switch">
+                <input type="checkbox" v-model="darkMode">
+                <span class="slider round"></span>
+            </label>
+        </footer>
     </div>
 </body>
 </html>

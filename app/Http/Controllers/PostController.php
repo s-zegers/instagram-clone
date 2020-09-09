@@ -42,8 +42,12 @@ class PostController extends Controller
     }
 
     public function destroy(int $id)
-    {
-        Post::destroy($id);
+    {   
+        $post = Post::find($id);
+
+        if ($post->user_id == auth()->user()->id) {
+            Post::destroy($id);
+        }
 
         return redirect()->route('home');
     }

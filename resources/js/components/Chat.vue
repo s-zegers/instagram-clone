@@ -2,12 +2,21 @@
   <div class="panel panel-default">
     <div class="panel-body mb-3">
       <ul class="chat">
-        <li class="left clearfix" v-for="message in messages" v-bind:key="message.id">
-          <div class="chat-body clearfix">
+        <li class="left clearfix" v-for="message in mergedMessages" :key="message.id">
+          <div class="chat-body clearfix d-flex">
+            <div>
+              <img
+                v-profile-picture="message.user"
+                alt="Profile picture"
+                height="32"
+                width="32"
+                class="rounded-circle mr-2"
+              />
+            </div>
             <div class="header">
               <strong class="primary-font">{{ message.user.name }}</strong>
+              <p v-for="m in message.messages" :key="m.id">{{ m }}</p>
             </div>
-            <p>{{ message.message }}</p>
           </div>
         </li>
       </ul>
@@ -24,7 +33,7 @@
           @keyup.enter="sendMessage"
         />
         <span class="input-group-btn">
-          <button class="btn btn-primary" id="btn-chat" @click="sendMessage">Send</button>
+          <button class="btn btn-watermelon" id="btn-chat" @click="sendMessage">Send</button>
         </span>
       </div>
     </div>
@@ -77,6 +86,39 @@ export default {
         this.newMessage = "";
         chatScrollDown();
       });
+    },
+  },
+  directives: {
+    profilePicture: function (el, binding) {
+      let url = binding.value.profile_picture
+        ? `http://127.0.0.1:8000/storage/${binding.value.profile_picture}`
+        : `https://ui-avatars.com/api/?name=${binding.value.name}&color=7F9CF5&background=EBF4FF`;
+      el.src = url;
+    },
+  },
+  computed: {
+    mergedMessages() {
+      const messages = this.messages;
+      let newMessagesArray = [];
+      let mergedMessagesArray = [];
+      messages.forEach(function (message, i) {
+        mergedMessagesArray.push(message.message);
+        try {
+          if (message.user.id !== messages[i + 1].user.id) {
+            newMessagesArray.push({
+              user: message.user,
+              messages: mergedMessagesArray,
+            });
+            mergedMessagesArray = [];
+          }
+        } catch (error) {
+          newMessagesArray.push({
+            user: message.user,
+            messages: mergedMessagesArray,
+          });
+        }
+      });
+      return newMessagesArray;
     },
   },
 };

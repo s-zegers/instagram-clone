@@ -71,8 +71,13 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   directives: {
-    humanTimeDiff: function humanTimeDiff(el, value) {
-      el.innerText = moment__WEBPACK_IMPORTED_MODULE_0___default()(value).fromNow();
+    humanTimeDiff: function humanTimeDiff(el, binding) {
+      el.innerText = moment__WEBPACK_IMPORTED_MODULE_0___default()(binding.value).fromNow();
+    },
+    // Make user mentionable?
+    // Make application multi-language
+    formatLinks: function formatLinks(el, binding) {
+      el.innerHTML = binding.value.replace(/(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim, '<a href="$1">$1</a>');
     }
   }
 });
@@ -392,7 +397,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card mb-3" }, [
+  return _c("div", { staticClass: "card mt-3" }, [
     _vm.post.image
       ? _c("img", {
           staticClass: "card-img-top",
@@ -400,19 +405,82 @@ var render = function() {
         })
       : _vm._e(),
     _vm._v(" "),
+    _vm.post.user.id == _vm.user.id
+      ? _c("div", { staticClass: "dropdown show" }, [
+          _c("i", {
+            staticClass: "fas fa-ellipsis-v edit-icon position-absolute",
+            attrs: { "data-toggle": "dropdown" }
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "dropdown-menu",
+              attrs: { "aria-labelledby": "dropdownMenuLink" }
+            },
+            [
+              _c(
+                "form",
+                {
+                  ref: "form",
+                  staticClass: "d-inline",
+                  attrs: { action: _vm.deleteRoute, method: "POST" }
+                },
+                [
+                  _c("input", {
+                    attrs: { type: "hidden", name: "_token" },
+                    domProps: { value: _vm.csrf }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    attrs: { type: "hidden", name: "_method", value: "DELETE" }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "dropdown-item",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          return _vm.submitForm($event)
+                        }
+                      }
+                    },
+                    [_vm._v("Delete")]
+                  )
+                ]
+              )
+            ]
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
-      _c("h5", { staticClass: "card-title" }, [_vm._v(_vm._s(_vm.post.title))]),
+      _c("h5", { staticClass: "card-title mb-0" }, [
+        _vm._v(_vm._s(_vm.post.title))
+      ]),
       _vm._v(" "),
-      _c("p", { staticClass: "card-text" }, [
-        _vm._v(_vm._s(_vm.post.description))
-      ])
+      _c("p", {
+        directives: [
+          {
+            name: "format-links",
+            rawName: "v-format-links",
+            value: _vm.post.description,
+            expression: "post.description"
+          }
+        ],
+        staticClass: "card-text"
+      })
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-footer text-muted" }, [
-      _vm._v("\n    Posted by\n    "),
-      _c("a", { attrs: { href: _vm.showRoute } }, [
-        _vm._v(_vm._s(_vm.post.user.name))
-      ]),
+      _vm._v("\r\n      Posted by\r\n      "),
+      _c(
+        "a",
+        { staticClass: "animated-text", attrs: { href: _vm.showRoute } },
+        [_vm._v(_vm._s(_vm.post.user.name))]
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "float-right" }, [
         _c("span", {
@@ -424,40 +492,7 @@ var render = function() {
               expression: "post.created_at"
             }
           ]
-        }),
-        _vm._v(" "),
-        _vm.post.user.id == _vm.user.id
-          ? _c(
-              "form",
-              {
-                ref: "form",
-                staticClass: "d-inline",
-                attrs: { action: _vm.deleteRoute, method: "POST" }
-              },
-              [
-                _c("input", {
-                  attrs: { type: "hidden", name: "_token" },
-                  domProps: { value: _vm.csrf }
-                }),
-                _vm._v(" "),
-                _c("input", {
-                  attrs: { type: "hidden", name: "_method", value: "DELETE" }
-                }),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    on: {
-                      click: function($event) {
-                        return _vm.submitForm($event)
-                      }
-                    }
-                  },
-                  [_vm._v("❌")]
-                )
-              ]
-            )
-          : _vm._e()
+        })
       ])
     ])
   ])

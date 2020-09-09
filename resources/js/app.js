@@ -27,6 +27,36 @@ window.Vue = require('vue');
 
 const app = new Vue({
     el: '#app',
+    data() {
+        return {
+            darkMode: false,
+        }
+    },
+    mounted() {
+        let htmlElement = document.documentElement;
+        let theme = localStorage.getItem('theme');
+    
+        if (theme === 'dark') {
+            htmlElement.setAttribute('theme', 'dark')
+            this.darkMode = true
+        } else {
+            htmlElement.setAttribute('theme', 'light');
+            this.darkMode = false
+        }
+    },
+    watch: {
+        darkMode: function () {
+            let htmlElement = document.documentElement;
+    
+            if (this.darkMode) {
+                localStorage.setItem('theme', 'dark');
+                htmlElement.setAttribute('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+                htmlElement.setAttribute('theme', 'light');
+            }
+        }
+    },
     // Lazy load the components
     components: {
         'post-card': () => import(
@@ -57,3 +87,8 @@ $('#file, #profile-picture').change(function () {
         reader.readAsDataURL(this.files[0]); // convert to base64 string
     }
 });
+
+$('input[type="file"]').on('change',function(){
+    var fileName = $(this).val();
+    $(this).next('.custom-file-label').html(fileName);
+})
