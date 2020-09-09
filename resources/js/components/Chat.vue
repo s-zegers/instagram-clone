@@ -6,7 +6,7 @@
           <div class="chat-body clearfix d-flex">
             <div>
               <img
-                v-profile-picture="message.user"
+                :src="message.user.profile_picture_url"
                 alt="Profile picture"
                 height="32"
                 width="32"
@@ -86,14 +86,6 @@ export default {
         this.newMessage = "";
         chatScrollDown();
       });
-    },
-  },
-  directives: {
-    profilePicture: function (el, binding) {
-      let url = binding.value.profile_picture
-        ? `http://127.0.0.1:8000/storage/${binding.value.profile_picture}`
-        : `https://ui-avatars.com/api/?name=${binding.value.name}&color=7F9CF5&background=EBF4FF`;
-      el.src = url;
     },
   },
   computed: {
