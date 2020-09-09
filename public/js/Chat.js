@@ -111,7 +111,7 @@ function chatScrollDown() {
   },
   directives: {
     profilePicture: function profilePicture(el, binding) {
-      var url = binding.value ? "http://127.0.0.1:8000/storage/".concat(binding.value) : "https://ui-avatars.com/api/?name=".concat(binding.value, "&color=7F9CF5&background=EBF4FF");
+      var url = binding.value.profile_picture ? "http://127.0.0.1:8000/storage/".concat(binding.value.profile_picture) : "https://ui-avatars.com/api/?name=".concat(binding.value.name, "&color=7F9CF5&background=EBF4FF");
       el.src = url;
     }
   },
@@ -225,8 +225,8 @@ var render = function() {
                     {
                       name: "profile-picture",
                       rawName: "v-profile-picture",
-                      value: message.user.profile_picture,
-                      expression: "message.user.profile_picture"
+                      value: message.user,
+                      expression: "message.user"
                     }
                   ],
                   staticClass: "rounded-circle mr-2",

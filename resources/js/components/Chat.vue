@@ -6,7 +6,7 @@
           <div class="chat-body clearfix d-flex">
             <div>
               <img
-                v-profile-picture="message.user.profile_picture"
+                v-profile-picture="message.user"
                 alt="Profile picture"
                 height="32"
                 width="32"
@@ -90,9 +90,9 @@ export default {
   },
   directives: {
     profilePicture: function (el, binding) {
-      let url = binding.value
-        ? `http://127.0.0.1:8000/storage/${binding.value}`
-        : `https://ui-avatars.com/api/?name=${binding.value}&color=7F9CF5&background=EBF4FF`;
+      let url = binding.value.profile_picture
+        ? `http://127.0.0.1:8000/storage/${binding.value.profile_picture}`
+        : `https://ui-avatars.com/api/?name=${binding.value.name}&color=7F9CF5&background=EBF4FF`;
       el.src = url;
     },
   },
