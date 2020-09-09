@@ -38,6 +38,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -73,6 +74,8 @@ __webpack_require__.r(__webpack_exports__);
     humanTimeDiff: function humanTimeDiff(el, binding) {
       el.innerText = moment__WEBPACK_IMPORTED_MODULE_0___default()(binding.value).fromNow();
     },
+    // Make user mentionable?
+    // Make application multi-language
     formatLinks: function formatLinks(el, binding) {
       el.innerHTML = binding.value.replace(/(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim, '<a href="$1">$1</a>');
     }
@@ -472,7 +475,7 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-footer text-muted" }, [
-      _vm._v("\n    Posted by\n    "),
+      _vm._v("\r\n      Posted by\r\n      "),
       _c(
         "a",
         { staticClass: "animated-text", attrs: { href: _vm.showRoute } },

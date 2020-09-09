@@ -17005,14 +17005,14 @@ readers do not read off random characters that represent icons */
 }
 
 :root {
-  --background-color: #FFF;
-  --background-color-01dp: #FFF;
-  --background-color-02dp: #FFF;
-  --background-color-03dp: #FFF;
-  --background-color-04dp: #FFF;
-  --background-color-05dp: #FFF;
+  --background-color: #fff;
+  --background-color-01dp: #fff;
+  --background-color-02dp: #fff;
+  --background-color-03dp: #fff;
+  --background-color-04dp: #fff;
+  --background-color-05dp: #fff;
   --primary-text-color: rgba(0, 0, 0, 0.87);
-  --secondary-text-color: rgba(0, 0, 0, 0.60);
+  --secondary-text-color: rgba(0, 0, 0, 0.6);
   --disabled-text-color: rgba(0, 0, 0, 0.38);
 }
 
@@ -17048,13 +17048,15 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+th {
   color: var(--primary-text-color);
 }
 
 p,
 span,
-label {
+label,
+td {
   color: var(--secondary-text-color);
 }
 
@@ -17087,6 +17089,10 @@ a:hover {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+.card-header {
+  color: var(--primary-text-color);
+}
+
 .card-text {
   white-space: pre-wrap;
 }
@@ -17097,6 +17103,7 @@ a:hover {
   border: none;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-overflow: hidden;
+  color: var(--secondary-text-color);
 }
 
 .form-control::-moz-placeholder, .custom-file-label::-moz-placeholder {
@@ -17120,6 +17127,13 @@ a:hover {
 .custom-file-label::after {
   background-color: var(--background-color-01dp);
   height: calc(1.6em + 0.75rem + 2px);
+  color: var(--disabled-text-color);
+}
+
+.form-control:focus,
+.custom-file-label:focus {
+  background-color: var(--background-color-01dp);
+  box-shadow: none;
   color: var(--secondary-text-color);
 }
 
@@ -17216,6 +17230,10 @@ a:hover {
   display: block;
 }
 
+#btn-chat {
+  height: 100%;
+}
+
 #stories {
   overflow: auto;
   overflow-y: hidden;
@@ -17226,14 +17244,14 @@ a:hover {
 #stories::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   border-radius: 10px;
 }
 
 #stories::-webkit-scrollbar {
   width: 10px;
   height: 6px;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
 }
 
 #stories::-webkit-scrollbar-thumb {
@@ -17316,7 +17334,7 @@ a:hover {
 }
 
 .modal-author {
-  color: #FFF;
+  color: #fff;
   bottom: -2rem;
   width: 100%;
   text-align: center;
@@ -17326,17 +17344,28 @@ a:hover {
   list-style: none;
   margin: 0;
   padding: 0;
+  padding-right: 0.5rem;
 }
 
 .chat li {
   margin-bottom: 10px;
   padding-bottom: 5px;
-  border-bottom: 1px dotted #B3A9A9;
+}
+
+.chat li .chat-body img {
+  margin-top: 6px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.chat li .chat-body strong {
+  color: var(--primary-text-color);
 }
 
 .chat li .chat-body p {
   margin: 0;
-  color: #777777;
+  color: var(--secondary-text-color);
+  overflow-wrap: anywhere;
 }
 
 .panel-body {
@@ -17347,19 +17376,18 @@ a:hover {
 .panel-body::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #F5F5F5;
   border-radius: 10px;
 }
 
 .panel-body::-webkit-scrollbar {
   width: 10px;
   height: 6px;
-  background-color: #F5F5F5;
 }
 
 .panel-body::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #b827fc), color-stop(0.25, #2c90fc), color-stop(0.5, #b8fd33), color-stop(0.75, #fec837), color-stop(1, #fd1892));
+  padding-left: 1rem;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, crimson), color-stop(0.5, pink), color-stop(1, springgreen));
 }
 
 /* The switch - the box around the slider */
@@ -17404,11 +17432,7 @@ a:hover {
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  background-image: linear-gradient(-135deg, crimson, pink, springgreen);
 }
 
 input:checked + .slider:before {
@@ -17445,6 +17469,12 @@ header,
 main,
 footer {
   flex-shrink: 0;
+}
+
+.btn-watermelon {
+  background-image: linear-gradient(-135deg, crimson, pink, springgreen);
+  border: none;
+  color: black;
 }
 
 var map = {

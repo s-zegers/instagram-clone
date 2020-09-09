@@ -1,4 +1,5 @@
 <template>
+<!-- Make modal for each card if you click on the image -->
   <div class="card mt-3">
     <img v-if="post.image" class="card-img-top" :src="'/storage/' + post.image" alt="Card header" />
     <div v-if="post.user.id == user.id" class="dropdown show">
@@ -49,6 +50,8 @@ export default {
     humanTimeDiff: function (el, binding) {
       el.innerText = moment(binding.value).fromNow();
     },
+    // Make user mentionable?
+    // Make application multi-language
     formatLinks: function (el, binding) {
       el.innerHTML = binding.value.replace(
         /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim,

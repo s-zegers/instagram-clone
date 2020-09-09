@@ -50,6 +50,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // https://pusher.com/tutorials/chat-laravel
 var vm;
 
@@ -98,6 +107,38 @@ function chatScrollDown() {
         _this2.newMessage = "";
         chatScrollDown();
       });
+    }
+  },
+  directives: {
+    profilePicture: function profilePicture(el, binding) {
+      var url = binding.value ? "http://127.0.0.1:8000/storage/".concat(binding.value) : "https://ui-avatars.com/api/?name=".concat(binding.value, "&color=7F9CF5&background=EBF4FF");
+      el.src = url;
+    }
+  },
+  computed: {
+    mergedMessages: function mergedMessages() {
+      var messages = this.messages;
+      var newMessagesArray = [];
+      var mergedMessagesArray = [];
+      messages.forEach(function (message, i) {
+        mergedMessagesArray.push(message.message);
+
+        try {
+          if (message.user.id !== messages[i + 1].user.id) {
+            newMessagesArray.push({
+              user: message.user,
+              messages: mergedMessagesArray
+            });
+            mergedMessagesArray = [];
+          }
+        } catch (error) {
+          newMessagesArray.push({
+            user: message.user,
+            messages: mergedMessagesArray
+          });
+        }
+      });
+      return newMessagesArray;
     }
   }
 });
@@ -175,16 +216,38 @@ var render = function() {
       _c(
         "ul",
         { staticClass: "chat" },
-        _vm._l(_vm.messages, function(message) {
+        _vm._l(_vm.mergedMessages, function(message) {
           return _c("li", { key: message.id, staticClass: "left clearfix" }, [
-            _c("div", { staticClass: "chat-body clearfix" }, [
-              _c("div", { staticClass: "header" }, [
-                _c("strong", { staticClass: "primary-font" }, [
-                  _vm._v(_vm._s(message.user.name))
-                ])
+            _c("div", { staticClass: "chat-body clearfix d-flex" }, [
+              _c("div", [
+                _c("img", {
+                  directives: [
+                    {
+                      name: "profile-picture",
+                      rawName: "v-profile-picture",
+                      value: message.user.profile_picture,
+                      expression: "message.user.profile_picture"
+                    }
+                  ],
+                  staticClass: "rounded-circle mr-2",
+                  attrs: { alt: "Profile picture", height: "32", width: "32" }
+                })
               ]),
               _vm._v(" "),
-              _c("p", [_vm._v(_vm._s(message.message))])
+              _c(
+                "div",
+                { staticClass: "header" },
+                [
+                  _c("strong", { staticClass: "primary-font" }, [
+                    _vm._v(_vm._s(message.user.name))
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(message.messages, function(m) {
+                    return _c("p", { key: m.id }, [_vm._v(_vm._s(m))])
+                  })
+                ],
+                2
+              )
             ])
           ])
         }),
@@ -234,7 +297,7 @@ var render = function() {
           _c(
             "button",
             {
-              staticClass: "btn btn-primary",
+              staticClass: "btn btn-watermelon",
               attrs: { id: "btn-chat" },
               on: { click: _vm.sendMessage }
             },
