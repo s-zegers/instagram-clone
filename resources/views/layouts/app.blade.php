@@ -63,7 +63,7 @@
                                     @if (isset(Auth::user()->profile_picture))
                                         <img src="{{ asset('storage/'.Auth::user()->profile_picture) }}" alt="Profile picture" class="rounded-circle" height="20" width="20">
                                     @else
-                                        <img src="{{ asset('images/default-user-icon.jpg') }}" alt="Profile picture" class="rounded-circle" height="20" width="20"> 
+                                        <img src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}&color=7F9CF5&background=EBF4FF" alt="Profile picture" class="rounded-circle" height="20" width="20"> 
                                     @endif
                                     {{ Auth::user()->name }}
                                 </a>

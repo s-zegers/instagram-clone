@@ -8,7 +8,7 @@
                 @if (isset($user->profile_picture))
                     <img src="{{ asset("storage/$user->profile_picture") }}" alt="Profile picture" class="rounded-circle profile-picture" style="height: 64px; width: 64px;">
                 @else
-                    <img src="{{ asset('images/default-user-icon.jpg') }}" alt="Profile picture" height="64" class="rounded-circle">
+                    <img src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}&color=7F9CF5&background=EBF4FF" alt="Profile picture" height="64" class="rounded-circle">
                 @endif
                 <h1 class="ml-2 mb-0">{{ $user->name }}</h1>
             </div>
@@ -32,7 +32,7 @@
                                         @if (isset($follower->profile_picture))
                                             <img src="{{ asset("storage/$follower->profile_picture") }}" alt="Profile picture" class="rounded-circle profile-picture" style="height: 32px; width: 32px;">
                                         @else
-                                            <img src="{{ asset('images/default-user-icon.jpg') }}" alt="Profile picture" height="32" class="rounded-circle">
+                                            <img src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}&color=7F9CF5&background=EBF4FF" alt="Profile picture" height="32" class="rounded-circle">
                                         @endif
                                         <h4 class="ml-2 mb-0"><a href="/profile/{{ $follower->id }}">{{ $follower->name }}</a></h4>
                                     </div>
